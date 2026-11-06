@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trenzas Protectoras para Cuna | Cotizador Online</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 font-sans text-gray-800">
+
+  <!-- ENCABEZADO -->
+  <header class="bg-white border-b border-pink-100 py-6 px-4 text-center shadow-sm">
+    <h1 class="text-3xl md:text-4xl font-extrabold text-pink-600">Trenzas Protectoras para Cuna</h1>
+    <p class="text-gray-600 mt-2 max-w-xl mx-auto text-sm md:text-base">Protección suave, acolchada y personalizada para el descanso de tu bebé. ¡Diseña, cotiza y encarga la tuya a medida!</p>
+    <div class="mt-3 inline-block bg-pink-50 text-pink-700 text-xs md:text-sm font-semibold px-3 py-1 rounded-full border border-pink-200">
+      ⏱️ Tiempo de elaboración: 2 a 3 días hábiles (según demanda)
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- COLUMNA IZQUIERDA: CALCULADORA DE COTIZACIÓN -->
+    <section class="lg:col-span-5 bg-white p-6 rounded-2xl shadow-md border border-pink-100 flex flex-col justify-between">
+      <div>
+        <h2 class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b">📐 Cotizador de Trenza</h2>
+        
+        <!-- 1. Selección de Gadejos -->
+        <div class="mb-4">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">1. Selecciona el tipo de gadejo:</label>
+          <div class="grid grid-cols-3 gap-2">
+            <button onclick="cambiarGadejo(3, this)" class="btn-gadejo border-2 border-pink-500 bg-pink-50 text-pink-700 font-bold py-2 rounded-xl text-center text-sm shadow-sm">3 Gadejos<br><span class="text-xs font-normal">$45k/m</span></button>
+            <button onclick="cambiarGadejo(4, this)" class="btn-gadejo border-2 border-gray-200 text-gray-600 hover:border-pink-300 font-bold py-2 rounded-xl text-center text-sm">4 Gadejos<br><span class="text-xs font-normal">$55k/m</span></button>
+            <button onclick="cambiarGadejo(5, this)" class="btn-gadejo border-2 border-gray-200 text-gray-600 hover:border-pink-300 font-bold py-2 rounded-xl text-center text-sm">5 Gadejos<br><span class="text-xs font-normal">$70k/m</span></button>
+          </div>
+        </div>
+
+        <!-- 2. Metros necesarios -->
+        <div class="mb-4">
+          <label for="metros" class="block text-sm font-semibold text-gray-700 mb-2">2. Cantidad de metros:</label>
+          <div class="flex items-center gap-3">
+            <input type="number" id="metros" value="1" min="0.5" step="0.5" oninput="calcularTotal()" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-400 focus:outline-none text-lg font-bold text-center">
+            <span class="font-semibold text-gray-600">Metros</span>
+          </div>
+          <p class="text-[11px] text-gray-500 mt-1">💡 Ejemplo: Una cuna de 1.9m x 1m necesita aprox. 4.7 metros para todo el contorno.</p>
+        </div>
+
+        <!-- 3. Cojines adicionales -->
+        <div class="mb-4 bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-3">
+          <span class="block text-sm font-semibold text-gray-700">☁️ ¿Deseas cojines adicionales?</span>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+            <div>
+              <label class="block text-gray-600 font-medium">Nube Normal ($30k)</label>
+              <input type="number" id="cojin-nube-norm" value="0" min="0" max="5" oninput="calcularTotal()" class="w-full p-2 border border-gray-300 rounded-lg text-center font-bold bg-white">
+            </div>
+            <div>
+              <label class="block text-gray-600 font-medium">Nube Grande ($50k)</label>
+              <input type="number" id="cojin-nube-grand" value="0" min="0" max="5" oninput="calcularTotal()" class="w-full p-2 border border-gray-300 rounded-lg text-center font-bold bg-white">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium text-xs">Otras formas (Luna, Gota, Estrella) - $30k c/u</label>
+            <input type="number" id="cojin-otras" value="0" min="0" max="5" oninput="calcularTotal()" class="w-full p-2 border border-gray-300 rounded-lg text-center font-bold bg-white">
+          </div>
+        </div>
+
+        <!-- Alerta Promoción Cojín Nube -->
+        <div id="alerta-nube" class="hidden mb-4 p-3 bg-amber-50 border border-amber-200 text-amber-800 rounded-xl text-xs font-medium flex items-center gap-2">
+          <span>☁️</span>
+          <span>¡Genial! Por compras de 3 metros o más te <strong>regalamos un cojín en forma de nube</strong>.</span>
+        </div>
+
+        <!-- Resultado Estimado -->
+        <div class="bg-pink-50 p-4 rounded-xl border border-pink-200 mb-5 text-center">
+          <p class="text-xs text-gray-500 uppercase font-semibold">Valor Estimado (Sin envío)</p>
+          <p id="precio-total" class="text-3xl font-black text-pink-600 my-1">$ 0</p>
+          <p class="text-xs text-gray-500">*El costo del envío se calcula o se exonera si recoges en local.</p>
+        </div>
+      </div>
+
+      <!-- Botón Pedido por WhatsApp -->
+      <button onclick="enviarWhatsApp()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition duration-200 text-center flex items-center justify-center gap-2">
+        <span>💬</span> Enviar Pedido / Consultar por WhatsApp
+      </button>
+    </section>
+
+    <!-- COLUMNA DERECHA: INFORMACIÓN, MEDIDAS Y GALERÍA DINÁMICA -->
+    <section class="lg:col-span-7 space-y-6">
+      
+      <!-- CÓMO MEDIR TU CUNA -->
+      <div class="bg-white p-5 rounded-2xl shadow-md border border-gray-100 text-sm space-y-2">
+        <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
+          📏 ¿Cómo saber cuántos metros necesitas?
+        </h3>
+        <p class="text-gray-600">
+          Mide los lados de la cuna que deseas cubrir (cabecera, pie y laterales). Suma las longitudes de los lados que tendrán protección. 
+          <br><em>Ejemplo:</em> Si tu cuna mide 1.9m de largo por 1m de ancho y quieres rodearla por completo, necesitarás aproximadamente <strong>4.7 metros</strong>.
+        </p>
+      </div>
+
+      <!-- SECCIÓN ESTILOS DE COJINES -->
+      <div class="bg-white p-5 rounded-2xl shadow-md border border-gray-100 flex flex-col sm:flex-row items-center gap-4">
+        <div class="w-full sm:w-1/3">
+          <img src="imagenes/cojines/1.jpg" onclick="abrirModal(this.src)" alt="Estilos de Cojines" class="w-full h-32 object-cover rounded-xl border border-pink-100 cursor-pointer hover:opacity-90 transition shadow-sm" onerror="this.src='imagenes/cojines/1.jpeg';">
+          <p class="text-[11px] text-center text-gray-400 mt-1">Haz clic para ampliar</p>
+        </div>
+        <div class="w-full sm:w-2/3 space-y-2 text-sm">
+          <h3 class="font-bold text-gray-800">☁️ Estilos de Cojines Adicionales</h3>
+          <p class="text-xs text-gray-600">Disponibles en diseño de nube (Normal $30k / Grande $50k), luna, gota y estrella ($30.000 c/u).</p>
+          <p class="text-xs text-pink-600 font-semibold">¡Recuerda que a partir de 3 metros de trenza te llevas un cojín de nube de regalo!</p>
+        </div>
+      </div>
+
+      <!-- PALETA DE COLORES -->
+      <div class="bg-white p-5 rounded-2xl shadow-md border border-gray-100">
+        <h3 class="font-bold text-gray-800 text-base mb-2">🎨 Guía de Colores Disponibles</h3>
+        <p class="text-xs text-gray-500 mb-3">Puedes combinar los colores que prefieras a tu gusto:</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+          <div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg border"><span class="w-4 h-4 rounded-full bg-pink-300 inline-block"></span> Rosa / Baby Rosa</div>
+          <div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg border"><span class="w-4 h-4 rounded-full bg-sky-200 inline-block"></span> Celeste</div>
+          <div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg border"><span class="w-4 h-4 rounded-full bg-purple-200 inline-block"></span> Lila / Lavanda</div>
+          <div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg border"><span class="w-4 h-4 rounded-full bg-gray-200 inline-block"></span> Gris Perla</div>
+          <div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg border"><span class="w-4 h-4 rounded-full bg-yellow-100 inline-block"></span> Beige / Arena</div>
+          <div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg border"><span class="w-4 h-4 rounded-full bg-[#bbf7d0] inline-block"></span> Verde Menta</div>
+          <div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg border"><span class="w-4 h-4 rounded-full bg-white border inline-block"></span> Blanco Puro</div>
+          <div class="flex items-center gap-2 p-2 bg-gray-50 rounded-lg border"><span class="w-4 h-4 rounded-full bg-amber-200 inline-block"></span> Amarillo Pastel</div>
+        </div>
+      </div>
+
+      <!-- POLÍTICAS DE ENVÍO Y PAGO -->
+      <div class="bg-white p-5 rounded-2xl shadow-md border border-gray-100 text-sm space-y-3">
+        <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
+          🚚 Envíos, Retiros y Pagos
+        </h3>
+        <ul class="space-y-2 text-gray-600">
+          <li class="flex items-start gap-2">
+            <span class="text-pink-500 font-bold">•</span>
+            <span><strong>Recogida local:</strong> Puedes pasar a retirar tu pedido sin costo en el <strong>barrio Castilla (Bogotá)</strong>.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-pink-500 font-bold">•</span>
+            <span><strong>Bogotá (Domicilio):</strong> Disponible pago contra entrega.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-pink-500 font-bold">•</span>
+            <span><strong>Fuera de Bogotá:</strong> Se envía por <em>Interrapidísimo</em> (requiere adelanto y saldo contra guía).</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-pink-500 font-bold">•</span>
+            <span><strong>Medios de pago:</strong> Efectivo, Nequi, Daviplata y Bre-B.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- GALERÍA DINÁMICA POR GADEJOS -->
+      <div class="bg-white p-5 rounded-2xl shadow-md border border-gray-100">
+        <div class="flex justify-between items-center mb-3">
+          <h3 id="titulo-galeria" class="font-bold text-gray-800 text-base">📷 Referencias de 3 Gadejos</h3>
+          <span class="text-xs bg-pink-100 text-pink-700 px-2 py-1 rounded-lg font-semibold">Haz clic para ampliar</span>
+        </div>
+        <p class="text-xs text-gray-500 mb-4">Fotos reales de los modelos fabricados:</p>
+        <div id="galeria" class="grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[380px] overflow-y-auto p-1">
+          <!-- Las fotos se cargan automáticamente según el gadejo -->
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- VENTANA EMERGENTE (MODAL) PARA AMPLIAR FOTOS -->
+  <div id="modal-imagen" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4" onclick="cerrarModal()">
+    <div class="relative max-w-4xl max-h-[90vh]">
+      <button class="absolute -top-10 right-0 text-white text-3xl font-bold hover:text-pink-400">&times;</button>
+      <img id="imagen-ampliada" src="" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl object-contain mx-auto">
+    </div>
+  </div>
+
+  <!-- LÓGICA JAVASCRIPT -->
+  <script>
+    const TELEFONO_WHATSAPP = '573208951841';
+
+    const PRECIOS_POR_METRO = {
+      3: 45000, 
+      4: 55000, 
+      5: 70000  
+    };
+
+    let gadejoSeleccionado = 3;
+
+    // CANTIDAD EXACTA DE FOTOS POR CARPETA
+    const CANTIDAD_FOTOS = {
+      3: 8, 
+      4: 6, 
+      5: 6  
+    };
+
+    function cambiarGadejo(cantidad, elemento) {
+      gadejoSeleccionado = cantidad;
+      
+      document.querySelectorAll('.btn-gadejo').forEach(btn => {
+        btn.className = 'btn-gadejo border-2 border-gray-200 text-gray-600 hover:border-pink-300 font-bold py-2 rounded-xl text-center text-sm';
+      });
+      elemento.className = 'btn-gadejo border-2 border-pink-500 bg-pink-50 text-pink-700 font-bold py-2 rounded-xl text-center text-sm shadow-sm';
+      
+      document.getElementById('titulo-galeria').innerText = `📷 Referencias de ${cantidad} Gadejos`;
+      cargarGaleria(cantidad);
+      calcularTotal();
+    }
+
+    function cargarGaleria(gadejos) {
+      const contenedor = document.getElementById('galeria');
+      contenedor.innerHTML = '';
+
+      const totalFotos = CANTIDAD_FOTOS[gadejos] || 6;
+
+      for (let i = 1; i <= totalFotos; i++) {
+        const item = document.createElement('div');
+        item.className = 'relative group rounded-xl overflow-hidden border border-gray-200 aspect-square bg-gray-100 cursor-pointer';
+        
+        const rutaJpg = `imagenes/${gadejos}-gadejos/${i}.jpg`;
+        const rutaJpeg = `imagenes/${gadejos}-gadejos/${i}.jpeg`;
+        const rutaPng = `imagenes/${gadejos}-gadejos/${i}.png`;
+
+        item.innerHTML = `
+          <img src="${rutaJpg}" alt="Trenza ${gadejos} gadejos - Ref ${i}" class="w-full h-full object-cover group-hover:scale-105 transition duration-200" 
+               onerror="if(this.src.includes('.jpg')) { this.src='${rutaJpeg}'; } else if(this.src.includes('.jpeg')) { this.src='${rutaPng}'; } else { this.parentElement.style.display='none'; }">
+          <span class="absolute bottom-2 left-2 bg-black/60 text-white text-xs px-2 py-0.5 rounded-md backdrop-blur-sm">${gadejos} Gadejos #${i}</span>
+        `;
+        
+        item.onclick = () => abrirModal(item.querySelector('img').src);
+
+        contenedor.appendChild(item);
+      }
+    }
+
+    function calcularTotal() {
+      const metros = parseFloat(document.getElementById('metros').value) || 0;
+      const nubeNorm = parseInt(document.getElementById('cojin-nube-norm').value) || 0;
+      const nubeGrand = parseInt(document.getElementById('cojin-nube-grand').value) || 0;
+      const otrasCojines = parseInt(document.getElementById('cojin-otras').value) || 0;
+
+      const precioMetro = PRECIOS_POR_METRO[gadejoSeleccionado];
+      const costoTrenza = (metros > 0 ? metros : 0) * precioMetro;
+      
+      const costoCojines = (nubeNorm * 30000) + (nubeGrand * 50000) + (otrasCojines * 30000);
+      const total = costoTrenza + costoCojines;
+
+      document.getElementById('precio-total').innerText = '$ ' + total.toLocaleString('es-CO');
+
+      const alertaNube = document.getElementById('alerta-nube');
+      if (metros >= 3) {
+        alertaNube.classList.remove('hidden');
+      } else {
+        alertaNube.classList.add('hidden');
+      }
+    }
+
+    function abrirModal(src) {
+      const modal = document.getElementById('modal-imagen');
+      const img = document.getElementById('imagen-ampliada');
+      img.src = src;
+      modal.classList.remove('hidden');
+    }
+
+    function cerrarModal() {
+      document.getElementById('modal-imagen').classList.add('hidden');
+    }
+
+    function enviarWhatsApp() {
+      const metros = document.getElementById('metros').value;
+      const nubeNorm = parseInt(document.getElementById('cojin-nube-norm').value) || 0;
+      const nubeGrand = parseInt(document.getElementById('cojin-nube-grand').value) || 0;
+      const otrasCojines = parseInt(document.getElementById('cojin-otras').value) || 0;
+      const precioTotal = document.getElementById('precio-total').innerText;
+      const incluyeNube = metros >= 3 ? ' (¡Incluye Cojín Nube de regalo!)' : '';
+
+      let mensaje = `Hola! Quisiera encargar o cotizar una trenza protectora:
+• Gadejos: ${gadejoSeleccionado} Gadejos
+• Metros: ${metros} m${incluyeNube}`;
+
+      if (nubeNorm > 0) mensaje += `\n• Cojín Nube Normal ($30k): ${nubeNorm}`;
+      if (nubeGrand > 0) mensaje += `\n• Cojín Nube Grande ($50k): ${nubeGrand}`;
+      if (otrasCojines > 0) mensaje += `\n• Cojines otras formas ($30k): ${otrasCojines}`;
+
+      mensaje += `\n• Valor estimado: ${precioTotal} (sin envío)
+\n¿Me ayudas con la elección de colores y para coordinar el pago/envío por favor?`;
+
+      const url = `https://wa.me/${TELEFONO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+    }
+
+    // Inicializar al cargar
+    cargarGaleria(3);
+    calcularTotal();
+  </script>
+</body>
+</html>
